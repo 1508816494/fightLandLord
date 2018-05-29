@@ -1,4 +1,3 @@
-import java.lang.reflect.Array;
 import java.util.*;
 
 
@@ -51,18 +50,19 @@ public class CompeteTable implements GiveoutCardsRule{
 
         System.out.println("洗牌完成！下面开始发牌。。。");
         //自动发牌
-        List<Cards> cardsP1 = allCards.subList(0,17);
-        List<Cards> cardsP2 = allCards.subList(17,34);
-        List<Cards> cardsP3 = allCards.subList(34,51);
         List<Cards> landLordP4 = allCards.subList(51,54);
 
-        //自动整牌
-        player1.setCardsList(orderCards(cardsP1));
-        player2.setCardsList(orderCards(cardsP2));     //此处使用的setCardsv2方法是把list型的数据传入queue型的数据  queue.addAll(List)
-        player3.setCardsList(orderCards(cardsP3));
+        player1.addCards(allCards.subList(0,17));
+        player2.addCards(allCards.subList(17,34));     //此处使用的setCardsv2方法是把list型的数据传入queue型的数据  queue.addAll(List)
+        player3.addCards(allCards.subList(34,51));
+        landLordPlayer.addCards(landLordP4);  //给地主牌
 
-        landLordPlayer.getCardsList().addAll(orderCards(landLordP4));  //地主多发三张牌
-        orderCards(landLordPlayer.getCardsList());
+        //排序
+        orderCards(player1.getCardsList());
+        orderCards(player2.getCardsList());
+        orderCards(player3.getCardsList());
+
+
 
 //        List<Cards> temp = new ArrayList<Cards>(landLordPlayer.getCardQueue());         //使用List temp = new ArrayList (queue)实现queue转化成list
 //        orderCards(temp);         //上面的排序使得地主的牌分成两部分排序，所以需要再次对所有牌进行重新排序
@@ -165,7 +165,8 @@ public class CompeteTable implements GiveoutCardsRule{
                 return o1.getValue() - o2.getValue();
             }
         });
-        return myCards;
+
+       return new ArrayList<>(myCards);
     }
 
     /**

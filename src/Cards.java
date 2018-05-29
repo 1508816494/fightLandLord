@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class Cards {
@@ -100,14 +102,36 @@ public class Cards {
 
 
 
-        @Override
-        public String toString() {
-            return "com.yyt.card.model.Card{" +
-                    "suit='" + suit + '\'' +
-                    ", point=" + point +
-                    '}';
-        }
+    @Override
+    public String toString() {
+        return "com.yyt.card.model.Card{" +
+                "suit='" + suit + '\'' +
+                ", point=" + point +
+                '}';
+    }
+
+    public static void main(String[] args) {
+
+        List<Integer> list = new ArrayList<>(10);
+        list.add(1);
+        list.add(2);
+        list.add(4);
+        list.add(3);
+        list.add(6);
 
 
+        Collections.sort(list, new Comparator<Integer>() {
+            @Override
+            public int compare(Integer o1, Integer o2) {
+                return o1-o2;
+            }
+        });
+
+        List<Integer> tempList = list.subList(1,4);
+
+        tempList.addAll(new ArrayList<>(1));
+
+        System.out.println(tempList.get(2));
+    }
 
 }

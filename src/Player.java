@@ -7,8 +7,8 @@ public class Player {
     private int id;
     private String name;
     private  boolean landLord;
-    private List<Cards> cardsList;
-    private List<Cards> chooseCards;
+    private final List<Cards> cardsList; //不可变容器
+    private final List<Cards> chooseCards; //不可变容器
 
     public Player(int id, String name) {
         this.id = id;
@@ -30,16 +30,18 @@ public class Player {
         return chooseCards;
     }
 
-    public void setChooseCards(List<Cards> chooseCards) {
-        this.chooseCards = chooseCards;
-    }
 
     public List<Cards> getCardsList() {
         return cardsList;
     }
 
-    public void setCardsList(List<Cards> cardsList) {
-        this.cardsList = cardsList;
+
+    public void addCards(List<Cards> cards) {
+        this.cardsList.addAll(cards);
+    }
+
+    public void addChooseCards(List<Cards> cards) {
+        this.chooseCards.addAll(cards);
     }
 
     public int getId() {
